@@ -10,6 +10,8 @@ const Tasks = () => {
   const [editingTask, setEditingTask] = useState(null);
 
   useEffect(() => {
+    if (!user) return;
+
     const fetchTasks = async () => {
       try {
         const response = await axiosInstance.get('/api/tasks', {
@@ -17,12 +19,17 @@ const Tasks = () => {
         });
         setTasks(response.data);
       } catch (error) {
+        console.error(error);
         alert('Failed to fetch tasks.');
       }
     };
 
     fetchTasks();
   }, [user]);
+
+  if (!user) {
+    return <div className="p-6">Please login first.</div>;
+  }
 
   return (
     <div className="container mx-auto p-6">
