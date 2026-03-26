@@ -21,4 +21,14 @@ In this assignment you will complete the following tasks:
 **GitHub link of the starter project: **[https://github.com/nahaQUT/sampleapp_IFQ636.git](https://github.com/nahaQUT/sampleapp_IFQ636.git)
 
 ---
+## Features
+- Create Task
+- Read Tasks
+- Update Task
+- Delete Task
+
+## Tech Stack
+- Frontend: React
+- Backend: Node.js + Express
+- Database: MongoDB
 
