@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const taskRoutes = require('./routes/taskRoutes');
+const flowerRoutes = require('./routes/flowerRoutes');
 
 const app = express();
 
@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/tasks', taskRoutes);
+app.use('/api/flowers', flowerRoutes);
 
 if (require.main === module) {
   connectDB();

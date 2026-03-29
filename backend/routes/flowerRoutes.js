@@ -15,13 +15,12 @@ router.get('/', async (req, res) => {
 // CREATE flower
 router.post('/', async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { title, description, deadline } = req.body;
 
     const newFlower = new Flower({
-      name,
+      title,
       description,
-      price,
-      category,
+      deadline,
     });
 
     const savedFlower = await newFlower.save();
@@ -34,11 +33,11 @@ router.post('/', async (req, res) => {
 // UPDATE flower
 router.put('/:id', async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { title, description, deadline } = req.body;
 
     const updatedFlower = await Flower.findByIdAndUpdate(
       req.params.id,
-      { name, description, price, category },
+      { title, description, deadline },
       { new: true }
     );
 
