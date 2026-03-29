@@ -15,12 +15,13 @@ router.get('/', async (req, res) => {
 // CREATE flower
 router.post('/', async (req, res) => {
   try {
-    const { title, description, deadline } = req.body;
+    const { name, description, price, category } = req.body;
 
     const newFlower = new Flower({
-      title,
+      name,
       description,
-      deadline,
+      price,
+      category,
     });
 
     const savedFlower = await newFlower.save();
@@ -33,11 +34,11 @@ router.post('/', async (req, res) => {
 // UPDATE flower
 router.put('/:id', async (req, res) => {
   try {
-    const { title, description, deadline } = req.body;
+    const { name, description, price, category } = req.body;
 
     const updatedFlower = await Flower.findByIdAndUpdate(
       req.params.id,
-      { title, description, deadline },
+      { name, description, price, category },
       { new: true }
     );
 
@@ -51,7 +52,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     await Flower.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Flower deleted' });
+    res.json({ message: 'Flower deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Failed to delete flower' });
   }

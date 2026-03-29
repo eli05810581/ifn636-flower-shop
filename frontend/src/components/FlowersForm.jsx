@@ -1,49 +1,115 @@
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
-const TaskList = ({ flowers, setFlowers, setEditingFlower }) => {
+const FlowersForm = ({ flowers, setFlowers, editingFlower, setEditingFlower }) => {
   const { user } = useAuth();
 
-  const handleDelete = async (flowerId) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    price: '',
+    category: '',
+  });
+
+  useEffect(() => {
+    if (editingFlower) {
+      setFormData(editingFlower);
+    }
+  }, [editingFlower]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      await axiosInstance.delete(`/api/flowers/${flowerId}`, {
-        headers: { Authorization: `Bearer ${user.token}` },
+      if (editingFlower) {
+        const response = await axiosInstance.put(
+          `/api/flowers/${editingFlower._id}`,
+          formData,
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
+        );
+
+        setFlowers(
+          flowers.map((flower) =>
+            flower._id === editingFlower._id ? response.data : flower
+          )
+        );
+      } else {
+        const response = await axiosInstance.post(
+          '/api/flowers',
+          formData,
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
+        );
+
+        setFlowers([response.data, ...flowers]);
+      }
+
+      setFormData({
+        name: '',
+        description: '',
+        price: '',
+        category: '',
       });
-      setFlowers(flowers.filter((flower) => flower._id !== flowerId));
+
+      setEditingFlower(null);
     } catch (error) {
-      alert('Failed to delete flower.');
+      alert('Failed to save flower.');
     }
   };
 
   return (
-    <div>
-      {flowers.map((flower) => (
-        <div key={flower._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
-          <h2 className="font-bold">{flower.title}</h2>
-          <p>{flower.description}</p>
-          <p className="text-sm text-gray-500">
-            Date: {new Date(flower.deadline).toLocaleDateString()}
-          </p>
+    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
+      <h1 className="text-2xl font-bold mb-4">
+        {editingFlower ? 'Edit Flower' : 'Add Flower'}
+      </h1>
 
-          <div className="mt-2">
-            <button
-              onClick={() => setEditingFlower(flower)}
-              className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded"
-            >
-              Edit Flower
-            </button>
+      <input
+        type="text"
+        placeholder="Name"
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
+      />
 
-            <button
-              onClick={() => handleDelete(flower._id)}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              Delete Flower
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
+      <input
+        type="text"
+        placeholder="Description"
+        value={formData.description}
+        onChange={(e) =>
+          setFormData({ ...formData, description: e.target.value })
+        }
+        className="w-full mb-4 p-2 border rounded"
+      />
+
+      <input
+        type="number"
+        placeholder="Price"
+        value={formData.price}
+        onChange={(e) =>
+          setFormData({ ...formData, price: e.target.value })
+        }
+        className="w-full mb-4 p-2 border rounded"
+      />
+
+      <input
+        type="text"
+        placeholder="Category"
+        value={formData.category}
+        onChange={(e) =>
+          setFormData({ ...formData, category: e.target.value })
+        }
+        className="w-full mb-4 p-2 border rounded"
+      />
+
+      <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+        {editingFlower ? 'Update Flower' : 'Add Flower'}
+      </button>
+    </form>
   );
 };
 
-export default TaskList;
+export default FlowersForm;

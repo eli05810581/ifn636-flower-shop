@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../axiosConfig';
-import TaskForm from '../components/TaskForm';
-import TaskList from '../components/FlowerList';
+import FlowersForm from '../components/FlowersForm';
+import FlowerList from '../components/FlowerList';
 import { useAuth } from '../context/AuthContext';
 
-const Tasks = () => {
+const Flowers = () => {
   const { user } = useAuth();
   const [flowers, setFlowers] = useState([]);
   const [editingFlower, setEditingFlower] = useState(null);
@@ -32,13 +32,13 @@ const Tasks = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <TaskForm
+      <FlowersForm
         flowers={flowers}
         setFlowers={setFlowers}
         editingFlower={editingFlower}
         setEditingFlower={setEditingFlower}
       />
-      <TaskList
+      <FlowerList
         flowers={flowers}
         setFlowers={setFlowers}
         setEditingFlower={setEditingFlower}
@@ -47,4 +47,4 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+export default Flowers;
