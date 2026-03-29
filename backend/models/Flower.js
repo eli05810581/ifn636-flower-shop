@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const taskSchema = new mongoose.Schema(
+const flowerSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
@@ -10,8 +10,12 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    deadline: {
-      type: Date,
+    price: {
+      type: Number,
+      required: true,
+    },
+    category: {
+      type: String,
       required: true,
     },
   },
@@ -20,4 +24,4 @@ const taskSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Flower', flowerSchema);
