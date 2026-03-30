@@ -1,28 +1,37 @@
 
-Assessment 1.2 
+# Assessment 1.2
 
- Project Overview
+## Project Overview
 This project is a full-stack Flower Shop Management System developed using React, Node.js, Express, and MongoDB.
 
- Features
+## Feature Categories
+
+### Authentication
+- Register
+- Login
+- Logout
+
+### User Management
+- Profile Update
+
+### Flower Management (CRUD)
 - Add Flower
 - View Flowers
 - Update Flower
 - Delete Flower
-- User Login and Register
-- Profile Update
 
- Tech Stack
+## Tech Stack
 - Frontend: React
 - Backend: Node.js + Express
 - Database: MongoDB
 - Version Control: GitHub
 
-Project Structure
+## Project Structure
 - backend/
 - frontend/
 
- How to Run the Project
+## How to Run the Project
+How to Run the Project
 
  Backend
 cd backend
@@ -39,3 +48,8 @@ Add your test email and password here.
 
 Notes
 This project implements CRUD operations with user authentication and MongoDB integration.
+### Backend
+```bash
+cd backend
+npm install
+npm run dev
