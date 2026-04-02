@@ -48,8 +48,3 @@ Add your test email and password here.
 
 Notes
 This project implements CRUD operations with user authentication and MongoDB integration.
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
