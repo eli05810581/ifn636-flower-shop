@@ -1,5 +1,5 @@
 {
-  "name":flowers-manager",
+  "name": "flowers-manager",
   "version": "1.0.0",
   "description": "Complete MERN flowers Manager Application",
   "scripts": {
