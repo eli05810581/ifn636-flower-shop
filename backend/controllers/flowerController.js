@@ -1,20 +1,17 @@
-const express = require('express');
-const router = express.Router();
 const Flower = require('../models/Flower');
-const { protect } = require('../middleware/authMiddleware');
 
 // GET all flowers
-router.get('/', protect, async (req, res) => {
+const getFlowers = async (req, res) => {
   try {
     const flowers = await Flower.find().sort({ createdAt: -1 });
     res.json(flowers);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch flowers' });
   }
-});
+};
 
 // CREATE flower
-router.post('/', protect, async (req, res) => {
+const addFlower = async (req, res) => {
   try {
     const { name, description, price, category } = req.body;
 
@@ -30,10 +27,10 @@ router.post('/', protect, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Failed to create flower' });
   }
-});
+};
 
 // UPDATE flower
-router.put('/:id', protect, async (req, res) => {
+const updateFlower = async (req, res) => {
   try {
     const { name, description, price, category } = req.body;
 
@@ -47,16 +44,21 @@ router.put('/:id', protect, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Failed to update flower' });
   }
-});
+};
 
 // DELETE flower
-router.delete('/:id', protect, async (req, res) => {
+const deleteFlower = async (req, res) => {
   try {
     await Flower.findByIdAndDelete(req.params.id);
     res.json({ message: 'Flower deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Failed to delete flower' });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getFlowers,
+  addFlower,
+  updateFlower,
+  deleteFlower,
+};
