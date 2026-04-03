@@ -40,13 +40,14 @@ frontend/
 
 ## How to Run the Project
 
-### Backend
+Backend
 ```bash
 cd backend
 npm install
 npm run dev
- ###  frontend
- cd frontend
+
+frontend
+cd frontend
 npm install
 npm start
 Deployment
