@@ -2,7 +2,7 @@
 
 ## Overview
 This project is a full-stack web application developed using React, Node.js, Express, and MongoDB.  
-The system allows users to register, log in, and manage flower products through full CRUD operations.
+The system allows users to register, log in, and manage flower products through full CRUD operations. .
 
 ---
 
